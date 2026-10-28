@@ -1,0 +1,183 @@
+:root {
+    --romance-red: #e60023;
+    --romance-pink: #ff5b9d;
+    --romance-gold: #ffd166;
+    --glass: rgba(20, 5, 30, 0.42);
+    --pointer-x: 50%;
+    --pointer-y: 50%;
+}
+
+html {
+    background: #020104;
+}
+
+body {
+    background:
+        radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255, 76, 148, 0.18), transparent 25%),
+        radial-gradient(circle at 20% 20%, rgba(104, 26, 122, 0.6), transparent 34%),
+        radial-gradient(circle at 80% 85%, rgba(135, 12, 48, 0.42), transparent 30%),
+        #050109;
+    transition: background 0.35s ease;
+}
+
+body::before,
+body::after {
+    position: fixed;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+}
+
+body::before {
+    z-index: -1;
+    opacity: 0.28;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.7) 1px, transparent 1px);
+    background-size: 92px 92px;
+    animation: drift 24s linear infinite;
+}
+
+body::after {
+    z-index: 30;
+    opacity: 0;
+    background: radial-gradient(circle at center, transparent 35%, rgba(0, 0, 0, 0.4));
+    transition: opacity 1.5s ease;
+}
+
+body.final-mode::after {
+    opacity: 1;
+}
+
+.proposal-card {
+    backdrop-filter: blur(16px) saturate(1.25);
+    -webkit-backdrop-filter: blur(16px) saturate(1.25);
+}
+
+.proposal-card::after {
+    position: absolute;
+    inset: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 23px;
+    content: "";
+    pointer-events: none;
+}
+
+.final-page {
+    background-color: #120316;
+}
+
+.memory-photo {
+    object-position: center center;
+}
+
+.final-page.show .memory-photo {
+    animation: memoryZoom 12s ease-out forwards;
+}
+
+.photo-shade {
+    background:
+        linear-gradient(180deg, rgba(3, 8, 22, 0.12), rgba(18, 2, 20, 0.62)),
+        linear-gradient(90deg, rgba(4, 0, 13, 0.28), transparent 45%, rgba(4, 0, 13, 0.24)),
+        radial-gradient(circle at center, transparent 18%, rgba(2, 0, 12, 0.62) 100%);
+}
+
+.photo-picker button,
+.photo-picker label {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    letter-spacing: 0.04em;
+}
+
+.photo-picker button:focus-visible,
+.photo-picker label:focus-visible {
+    outline: 2px solid var(--romance-gold);
+    outline-offset: 4px;
+}
+
+.spark {
+    position: fixed;
+    z-index: 50;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--romance-gold);
+    box-shadow: 0 0 14px var(--romance-pink);
+    pointer-events: none;
+    animation: sparkFly 0.85s ease-out forwards;
+}
+
+@keyframes drift {
+    to {
+        transform: translate3d(46px, -46px, 0);
+    }
+}
+
+@keyframes memoryZoom {
+    from {
+        transform: scale(1.08);
+    }
+    to {
+        transform: scale(1.02);
+    }
+}
+
+@keyframes sparkFly {
+    to {
+        opacity: 0;
+        transform: translate(var(--spark-x), var(--spark-y)) scale(0.1) rotate(180deg);
+    }
+}
+
+@media (max-width: 700px) {
+    #instruction {
+        top: 22px;
+        padding: 0 18px;
+        font-size: 12px;
+        letter-spacing: 2px;
+    }
+
+    .proposal-card {
+        width: calc(100% - 28px);
+        padding: 28px 20px 32px;
+        border-radius: 20px;
+    }
+
+    .heart-stage {
+        transform: scale(0.78);
+        margin-bottom: 8px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    .slow-love {
+        font-size: clamp(3.8rem, 18vw, 7rem);
+    }
+
+    .balloon.left {
+        left: 1%;
+        top: 17%;
+    }
+
+    .balloon.right {
+        right: 1%;
+        top: 18%;
+    }
+
+    .photo-picker {
+        bottom: 18px;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
